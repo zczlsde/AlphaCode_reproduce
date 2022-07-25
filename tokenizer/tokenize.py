@@ -15,6 +15,7 @@ def train(input_file, vocab_size, model_name, model_type, character_coverage,sen
     :param character_coverage: amount of characters covered by the model, good defaults are: 0.9995 for languages with
                                rich character set like Japanse or Chinese and 1.0 for other languages with
                                small character set.
+    :param sentence_size: amount of sentences that are trained in the tokenizer due to the size of the datatset.
     """
     input_argument = '--input=%s --model_prefix=%s --vocab_size=%s --model_type=%s --character_coverage=%s --input_sentence_size=%s' \
                      '--pad_id=0 --unk_id=1 --bos_id=2 --eos_id=3 '
@@ -23,19 +24,6 @@ def train(input_file, vocab_size, model_name, model_type, character_coverage,sen
 
 
 def run():
-    # en_input = '../data/corpus.en'
-    # en_vocab_size = 32000
-    # en_model_name = 'eng'
-    # en_model_type = 'bpe'
-    # en_character_coverage = 1
-    # train(en_input, en_vocab_size, en_model_name, en_model_type, en_character_coverage)
-
-    # ch_input = '../data/corpus.ch'
-    # ch_vocab_size = 32000
-    # ch_model_name = 'chn'
-    # ch_model_type = 'bpe'
-    # ch_character_coverage = 0.9995
-    # train(ch_input, ch_vocab_size, ch_model_name, ch_model_type, ch_character_coverage)
 
     input = '../data/codecontests_train.txt'
     vocab_size = 8000
@@ -48,8 +36,8 @@ def run():
 
 def test():
     sp = spm.SentencePieceProcessor()
-    # text = "For each test case output a line containing a single integer, equal to the minimal possible number of Johnny's lies during the game."
-    text = "from collections import Counter\nminr = 1\n"
+    text = "For each test case output a line containing a single integer, equal to the minimal possible number of Johnny's lies during the game."
+    # text = "from collections import Counter\n minr = 1\n"
     sp.Load("./codecontests.model")
     print(sp.EncodeAsPieces(text))
     print(sp.EncodeAsIds(text))
