@@ -25,20 +25,29 @@ def train(input_file, vocab_size, model_name, model_type, character_coverage,sen
 
 def run():
 
-    input = '../data/codecontests_train.txt'
+    input = '../data/description.txt'
     vocab_size = 8000
-    model_name = 'codecontests'
+    model_name = 'des'
     model_type = 'bpe'
     character_coverage = 1
-    sentence_size = 1000000
+    sentence_size = 795443
+    train(input, vocab_size, model_name, model_type, character_coverage,sentence_size)
+
+    input = '../data/solutions.txt'
+    vocab_size = 8000
+    model_name = 'sol'
+    model_type = 'bpe'
+    character_coverage = 1
+    sentence_size = 1500000
     train(input, vocab_size, model_name, model_type, character_coverage,sentence_size)
 
 
 def test():
     sp = spm.SentencePieceProcessor()
-    text = "For each test case output a line containing a single integer, equal to the minimal possible number of Johnny's lies during the game."
-    # text = "from collections import Counter\n minr = 1\n"
-    sp.Load("./codecontests.model")
+    # text = "For each test case output a line containing a single integer, equal to the minimal possible number of Johnny's lies during the game."
+    text = "from collections import Counter\n minr = 1\n"
+    # sp.Load("./des.model")
+    sp.Load("./sol.model")
     print(sp.EncodeAsPieces(text))
     print(sp.EncodeAsIds(text))
     # a = [12907, 277, 7419, 7318, 18384, 28724]
